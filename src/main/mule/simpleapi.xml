@@ -7,9 +7,10 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="1b33d09e-6581-42d9-b72e-ff13062aff09" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	
 	<flow name="simpleapiFlow" doc:id="1e3f9960-5259-4e4d-be30-1cff691d2842" >
 		<http:listener doc:name="Listener" doc:id="09485802-7f84-4508-b649-f7c554a0feff" config-ref="HTTP_Listener_config" path="api"/>
-		<set-payload value="#['Hello ' ++ attributes.queryParams.Name ++ ' thanks for visting us!']" doc:name="Set Payload" doc:id="07322a0c-9dfd-4ca2-a8e3-31a162397c6a" />
+		<set-payload value="#['Hello ' ++ attributes.queryParams.Name ++ ' thanks for visting us today on ' ++ now() as String {format: &quot;y-MM-dd&quot;}]" doc:name="Set Payload" doc:id="07322a0c-9dfd-4ca2-a8e3-31a162397c6a" />
 		<logger level="INFO" doc:name="Logger" doc:id="73f7bdee-6016-4204-9cf6-6c0e674b4363" message="#[payload]"/>
 	</flow>
 </mule>
